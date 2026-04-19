@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'bike_detail_screen.dart';
+import 'booking_screen.dart';
 
 
 class BikeItem extends StatelessWidget {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:velotoulouse/ui/theme/theme.dart';
 
 class BikeDetailScreen extends StatelessWidget {
   final String bike;
@@ -20,7 +21,7 @@ class BikeDetailScreen extends StatelessWidget {
             // bike title
             Text(
               bike,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: AppTextStyles.title,
             ),
             const SizedBox(height: 20),
 

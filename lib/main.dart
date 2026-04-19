@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'ui/screens/booking/bike_list_screen.dart';
+import 'ui/screens/booking/booking_screen.dart';
 
-void main(){
-  runApp(MyApp());
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'VeloToulouse',
-      home: const BikeListScreen(),
+      home: const BikeDetailScreen(bike: 'Slot #1022'),
     );
   }
 }
