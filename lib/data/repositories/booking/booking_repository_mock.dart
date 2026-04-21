@@ -1,18 +1,16 @@
 import 'package:velotoulouse/data/repositories/booking/booking_repository.dart';
 import 'package:velotoulouse/model/booking/booking_model.dart';
 
-class BookingRepositoryMock implements BookingRepository{
+class BookingRepositoryMock implements BookingRepository {
   final List<Booking> _bookings = [];
 
   @override
-  Future<List<Booking>> fetchBookings() {
-    return Future.delayed(Duration(milliseconds: 100), () {
-      return _bookings;
-    });
-  }
-  
+  List<Booking> getBookings(String userId) =>
+      _bookings.where((b) => b.userId == userId).toList();
+
   @override
-  Future<void> setBookings(Booking booking) async {
+  Booking addBooking(Booking booking) {
     _bookings.add(booking);
+    return booking;
   }
 }

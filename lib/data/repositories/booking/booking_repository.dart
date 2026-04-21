@@ -1,6 +1,8 @@
-import '../../../model/booking/booking_model.dart';
+import 'package:velotoulouse/model/booking/booking_model.dart';
 
 abstract class BookingRepository {
-  Future<List<Booking>> fetchBookings();
-  Future<void> setBookings(Booking booking);
+  List<Booking> getBookings(String userId);
+  Booking addBooking(Booking booking);
 }
+
+

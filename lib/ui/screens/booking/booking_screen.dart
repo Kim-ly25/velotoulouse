@@ -1,55 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:velotoulouse/ui/theme/theme.dart';
+import 'package:provider/provider.dart';
+import 'package:velotoulouse/ui/screens/booking/booking_detail_screen.dart';
+import 'package:velotoulouse/ui/screens/booking/view_model/booking_view_model.dart';
+import 'package:velotoulouse/ui/screens/booking/widgets/booking_content.dart';
+import 'package:velotoulouse/ui/states/app_state.dart';
 
-class BikeDetailScreen extends StatelessWidget {
-  final String bike;
-
-  const BikeDetailScreen({super.key, required this.bike});
+class BookBikeScreen extends StatelessWidget {
+  const BookBikeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Book Bike")),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            const Icon(Icons.pedal_bike, size: 80),
-            const SizedBox(height: 20),
-
-            // bike title
-            Text(
-              bike,
-              style: AppTextStyles.title,
-            ),
-            const SizedBox(height: 20),
-
-            // description box
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Text(
-                "• Bike unlocks immediately on confirmation\n"
-                "• Requires active pass or one-time ticket",
-              ),
-            ),
-
-            const Spacer(),
-
-            // confirm button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                },
-                child: const Text("Confirm Booking"),
-              ),
-            ),
-          ],
+    return ChangeNotifierProvider(
+      create: (_) => BookingViewModel(appState: context.read<AppState>()),
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Book Bike')),
+        body: Builder(
+          builder: (innerContext) => BookingContent(
+            onSelect: () {
+              final bookingViewModel = innerContext.read<BookingViewModel>();
+              Navigator.push(
+                innerContext,
+                MaterialPageRoute(
+                  builder: (_) => ChangeNotifierProvider.value(
+                    value: bookingViewModel,
+                    child: const BookingDetailScreen(),
+                  ),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

@@ -1,6 +1,7 @@
-import '../../../model/subscription/subscription.dart';
+import 'package:velotoulouse/model/subscription/pass_model.dart';
+
 
 abstract class SubscriptionRepository {
-  Future<Subscription?> fetchSubscription();
-  Future<bool> setSubscription(Subscription subscription);
+  Pass? getActivePass(String userId);
+  Pass savePass(Pass pass);
 }
