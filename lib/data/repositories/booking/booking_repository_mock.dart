@@ -14,15 +14,15 @@ class BookingRepositoryMock implements BookingRepository {
       final expiry = plan.type == PassType.daily
           ? now.add(const Duration(hours: 24))
           : plan.type == PassType.monthly
-              ? now.add(const Duration(days: 30))
-              : now.add(const Duration(days: 365));
-
-      return Booking(
-        slot: slot,
-        plan: plan,
-        startDate: now,
-        expiryDate: expiry,
-      );
-    });
+          ? now.add(const Duration(days: 30))
+          : now.add(const Duration(days: 365));
+        return Booking(
+          slot: slot,
+          plan: plan,
+          startDate: now,
+          expiryDate: expiry,
+        );
+      }
+    );
   }
 }

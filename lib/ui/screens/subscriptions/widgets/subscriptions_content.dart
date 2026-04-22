@@ -25,7 +25,6 @@ class _SubscriptionsContentState extends State<SubscriptionsContent> {
     SubscriptionsViewModel vm = context.watch<SubscriptionsViewModel>();
 
     AsyncValue<List<PassPlan>> asyncValue = vm.plansValue;
-
     Widget content;
     switch (asyncValue.state) {
       case AsyncValueState.loading:
@@ -58,13 +57,13 @@ class _SubscriptionsContentState extends State<SubscriptionsContent> {
                 context,
                 MaterialPageRoute(
                   builder: (_) =>
-                      const SuccessScreen(mode: SuccessMode.passActivated),
+                    const SuccessScreen(mode: SuccessMode.passActivated),
                 ),
               );
             },
           ),
         );
-    }
+      }
 
     return Padding(
       padding: const EdgeInsets.all(20),

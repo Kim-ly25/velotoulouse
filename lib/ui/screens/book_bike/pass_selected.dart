@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:velotoulouse/model/pass/pass_plan.dart';
-import 'package:velotoulouse/ui/screens/book_bike/success_screen.dart';
 import 'package:velotoulouse/ui/states/booking_state.dart';
 import 'package:velotoulouse/ui/theme/theme.dart';
-import 'package:velotoulouse/ui/utils/async_value.dart';
-import 'package:velotoulouse/ui/widgets/bike/primary_button.dart';
-
 
 class PassSelected extends StatelessWidget {
   const PassSelected({super.key});

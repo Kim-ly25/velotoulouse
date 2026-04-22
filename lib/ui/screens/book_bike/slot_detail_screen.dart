@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:velotoulouse/data/repositories/booking/booking_repository.dart';
 import 'package:velotoulouse/model/booking/booking.dart';
 import 'package:velotoulouse/ui/screens/book_bike/success_screen.dart';
-
 import '../../states/booking_state.dart';
 import '../../theme/theme.dart';
 import '../../widgets/bike/bike_app_bar.dart';
@@ -30,7 +29,6 @@ class _SlotDetailScreenState extends State<SlotDetailScreen> {
     final plan              = bookingState.selectedPlan!;
  
     setState(() => _isConfirming = true);
- 
     try {
       final Booking booking = await bookingRepository.confirmBooking(
         slot: slot,
@@ -92,10 +90,7 @@ class _SlotDetailScreenState extends State<SlotDetailScreen> {
                     // slotId is the primary identifier shown to the user
                     Text('Slot ${slot.id}', style: AppTextStyles.heading),
                     const SizedBox(height: 4),
-                    Text(
-                      'Completed - Station ${slot.stationName}',
-                      style: AppTextStyles.body,
-                    ),
+                    Text('Completed - Station ${slot.stationName}', style: AppTextStyles.body),
                   ],
                 ),
               ),
@@ -122,10 +117,10 @@ class _SlotDetailScreenState extends State<SlotDetailScreen> {
                     _DetailRow(
                       icon: Icons.credit_card,
                       text: hasPass
-                          ? 'Active pass detected – ready to unlock'
-                          : 'Requires active pass or one-time ticket',
-                      iconColor:
-                          hasPass ? AppColors.success : AppColors.textMedium,
+                        ? 'Active pass detected – ready to unlock'
+                        : 'Requires active pass or one-time ticket',
+
+                      iconColor: hasPass ? AppColors.success : AppColors.textMedium,
                     ),
                   ],
                 ),
@@ -135,8 +130,7 @@ class _SlotDetailScreenState extends State<SlotDetailScreen> {
               if (hasPass && bookingState.selectedPlan != null) ...[
                 const SizedBox(height: 16),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   decoration: BoxDecoration(
                     color: const Color(0xFFE8F5E9),
                     borderRadius: BorderRadius.circular(12),
@@ -144,13 +138,11 @@ class _SlotDetailScreenState extends State<SlotDetailScreen> {
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.check_circle,
-                          color: AppColors.success, size: 18),
+                      const Icon(Icons.check_circle, color: AppColors.success, size: 18),
                       const SizedBox(width: 10),
                       Text(
                         '${bookingState.selectedPlan!.label} is active',
-                        style: AppTextStyles.body
-                            .copyWith(color: AppColors.success),
+                        style: AppTextStyles.body.copyWith(color: AppColors.success),
                       ),
                     ],
                   ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../../../model/pass/pass_plan.dart';
 import '../../../theme/theme.dart';
-
 
 class PlanTile extends StatelessWidget {
   const PlanTile({
@@ -56,8 +54,8 @@ class PlanTile extends StatelessWidget {
                   ),
                   Icon(
                     isExpanded
-                        ? Icons.keyboard_arrow_up
-                        : Icons.keyboard_arrow_down,
+                      ? Icons.keyboard_arrow_up
+                      : Icons.keyboard_arrow_down,
                     color: AppColors.textLight,
                   ),
                 ],
@@ -94,7 +92,6 @@ class PlanTile extends StatelessWidget {
 
 class _CheckRow extends StatelessWidget {
   const _CheckRow({required this.text});
-
   final String text;
 
   @override

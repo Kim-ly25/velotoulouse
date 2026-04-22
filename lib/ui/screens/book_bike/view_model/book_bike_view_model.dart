@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../data/repositories/bike/bike_slot_repository.dart';
 import '../../../../model/bike/bike_slot.dart';
 import '../../../utils/async_value.dart';

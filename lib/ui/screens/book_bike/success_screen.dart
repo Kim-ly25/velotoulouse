@@ -63,12 +63,6 @@ class SuccessScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              if (isPassMode && bookingState.selectedPlan != null)
-                _InfoBadge(
-                  label: bookingState.selectedPlan!.label,
-                  sublabel:
-                      'Valid for one ride – unlocks slot ${bookingState.selectedSlot?.id ?? ''}',
-                ),
               if (!isPassMode && booking != null)
                 _InfoBadge(
                   label: booking.plan.label,
@@ -76,37 +70,35 @@ class SuccessScreen extends StatelessWidget {
                 ),
 
               const Spacer(),
-
               PrimaryButton(
                 label: isPassMode ? 'Back To Booking' : 'Done',
                 onTap: () {
                   if (isPassMode) {
                     if (bookingState.selectedSlot != null) {
-                      // FIX ❶: wrap widget in MaterialPageRoute
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (_) => const SlotDetailScreen()),
+                          builder: (_) => const SlotDetailScreen()),
+                          (route) => route.isFirst,
+                        );
+                      } else {
+                        bookingState.reset();
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const BookBikeScreen()),
+                          (route) => false,
+                        );
+                      }
+                    } else {
+                      bookingState.clearCurrentRideKeepPass();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const BookBikeScreen()),
                         (route) => route.isFirst,
                       );
-                    } else {
-                      bookingState.reset();
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => const BookBikeScreen()),
-                        (route) => false,
-                      );
                     }
-                  } else {
-                    bookingState.clearCurrentRideKeepPass();
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => const BookBikeScreen()),
-                      (route) => route.isFirst,
-                    );
-                  }
                 },
               ),
               const SizedBox(height: 16),
