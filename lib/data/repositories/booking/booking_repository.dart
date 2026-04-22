@@ -1,8 +1,11 @@
-import 'package:velotoulouse/model/booking/booking_model.dart';
+import '../../../model/booking/booking.dart';
+import '../../../model/bike/bike_slot.dart';
+import '../../../model/pass/pass_plan.dart';
+
 
 abstract class BookingRepository {
-  List<Booking> getBookings(String userId);
-  Booking addBooking(Booking booking);
+  Future<Booking> confirmBooking({
+    required BikeSlot slot,
+    required PassPlan plan,
+  });
 }
-
-

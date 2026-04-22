@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:velotoulouse/ui/screens/booking/booking_screen.dart';
+import 'package:velotoulouse/ui/screens/subscriptions/subscriptions_screen.dart';
+
+import 'ui/screens/book_bike/book_bike_screen.dart';
 import 'ui/theme/theme.dart';
-import 'ui/screens/pass/subscription_screen.dart';
 
 void mainCommon(List<InheritedProvider> providers) {
   runApp(
@@ -12,7 +13,6 @@ void mainCommon(List<InheritedProvider> providers) {
     ),
   );
 }
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -20,32 +20,37 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  int _index = 0;
 
-  final pages = const [
-    BookBikeScreen(),
-    SubscriptionScreen(),
-  ];
+class _MyAppState extends State<MyApp> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [BookBikeScreen(),SubscriptionsScreen()];
 
   @override
   Widget build(BuildContext context) {
+ 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: appTheme,
       home: Scaffold(
-        body: pages[_index],
+        body: _pages[_currentIndex],
+    
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _index,
-          onTap: (i) => setState(() => _index = i),
-          selectedItemColor: AppTheme.primary,
-          items: const [
-            BottomNavigationBarItem(
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          selectedItemColor: AppColors.primary,
+          items: [
+             BottomNavigationBarItem(
               icon: Icon(Icons.pedal_bike),
-              label: "Booking",
+              label: 'Booking',
             ),
-            BottomNavigationBarItem(
+             BottomNavigationBarItem(
               icon: Icon(Icons.subscriptions),
-              label: "Pass",
+              label: 'Pass',
             ),
           ],
         ),
@@ -53,3 +58,5 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+

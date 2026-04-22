@@ -1,16 +1,28 @@
-import 'package:velotoulouse/data/repositories/booking/booking_repository.dart';
-import 'package:velotoulouse/model/booking/booking_model.dart';
+import '../../../model/bike/bike_slot.dart';
+import '../../../model/booking/booking.dart';
+import '../../../model/pass/pass_plan.dart';
+import 'booking_repository.dart';
 
 class BookingRepositoryMock implements BookingRepository {
-  final List<Booking> _bookings = [];
-
   @override
-  List<Booking> getBookings(String userId) =>
-      _bookings.where((b) => b.userId == userId).toList();
+  Future<Booking> confirmBooking({
+    required BikeSlot slot,
+    required PassPlan plan,
+  }) async {
+    return Future.delayed(const Duration(milliseconds: 1000), () {
+      final now = DateTime.now();
+      final expiry = plan.type == PassType.daily
+          ? now.add(const Duration(hours: 24))
+          : plan.type == PassType.monthly
+              ? now.add(const Duration(days: 30))
+              : now.add(const Duration(days: 365));
 
-  @override
-  Booking addBooking(Booking booking) {
-    _bookings.add(booking);
-    return booking;
+      return Booking(
+        slot: slot,
+        plan: plan,
+        startDate: now,
+        expiryDate: expiry,
+      );
+    });
   }
 }

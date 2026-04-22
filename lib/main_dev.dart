@@ -1,31 +1,31 @@
 import 'package:provider/provider.dart';
-import 'package:velotoulouse/data/repositories/station/station_repository.dart';
-import 'package:velotoulouse/data/repositories/station/station_repository_mock.dart';
+
+import 'data/repositories/bike/bike_slot_repository.dart';
+import 'data/repositories/bike/bike_slot_repository_mock.dart';
 import 'data/repositories/booking/booking_repository.dart';
 import 'data/repositories/booking/booking_repository_mock.dart';
-import 'data/repositories/subscription/subscription_repository.dart';
-import 'data/repositories/subscription/subscription_repository_mock.dart';
+import 'data/repositories/pass/pass_plan_repository.dart';
+import 'data/repositories/pass/pass_plan_repository_mock.dart';
 import 'main_common.dart';
-import 'ui/states/app_state.dart';
-import 'ui/states/subscription_state.dart';
+import 'ui/states/booking_state.dart';
 
+/// Configure provider dependencies for the dev environment.
 List<InheritedProvider> get devProviders {
   return [
-    // global state
-    ChangeNotifierProvider<AppState>(
-      create: (_) => AppState(),
+    // 1 - Inject repositories
+    Provider<BikeSlotRepository>(
+      create: (_) => BikeSlotRepositoryMock(),
+    ),
+    Provider<PassPlanRepository>(
+      create: (_) => PassPlanRepositoryMock(),
+    ),
+    Provider<BookingRepository>(
+      create: (_) => BookingRepositoryMock(),
     ),
 
-    // repositories
-    Provider<StationRepository>(create: (_) => StationRepositoryMock()),
-    Provider<SubscriptionRepository>(create: (_) => SubscriptionRepositoryMock()),
-    Provider<BookingRepository>(create: (_) => BookingRepositoryMock()),
-
-    // state
-    ChangeNotifierProvider<SubscriptionState>(
-      create: (context) => SubscriptionState(
-        subscriptionRepository: context.read<SubscriptionRepository>(),
-      ),
+    // 2 - Inject global booking state (do the entire flow)
+    ChangeNotifierProvider<BookingState>(
+      create: (_) => BookingState(),
     ),
   ];
 }
