@@ -1,3 +1,4 @@
+
 enum AsyncValueState { loading, error, success }
 
 class AsyncValue<T> {
@@ -7,7 +8,8 @@ class AsyncValue<T> {
 
   AsyncValue._({this.data, this.error, required this.state});
 
-  factory AsyncValue.loading() => AsyncValue._(state: AsyncValueState.loading);
+  factory AsyncValue.loading() =>
+      AsyncValue._(state: AsyncValueState.loading);
 
   factory AsyncValue.success(T data) =>
       AsyncValue._(data: data, state: AsyncValueState.success);
