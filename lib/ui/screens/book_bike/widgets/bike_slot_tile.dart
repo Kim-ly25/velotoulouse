@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../../../model/bike/bike_slot.dart';
 import '../../../theme/theme.dart';
-
 
 class BikeSlotTile extends StatelessWidget {
   const BikeSlotTile({

@@ -2,31 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:velotoulouse/data/repositories/booking/booking_repository.dart';
 import 'package:velotoulouse/model/booking/booking.dart';
-import 'package:velotoulouse/ui/screens/book_bike/success_screen.dart';
+import 'package:velotoulouse/ui/screens/book_bike/success_view.dart';
 import '../../states/booking_state.dart';
 import '../../theme/theme.dart';
 import '../../widgets/bike/bike_app_bar.dart';
 import '../../widgets/bike/primary_button.dart';
 import '../subscriptions/subscriptions_screen.dart';
 
-class SlotDetailScreen extends StatefulWidget {
-  const SlotDetailScreen({super.key});
+class SlotDetailView extends StatefulWidget {
+  const SlotDetailView({super.key});
  
   /// Named route so SuccessScreen (passActivated) can popUntil here.
   static const String routeName = '/slot-detail';
  
   @override
-  State<SlotDetailScreen> createState() => _SlotDetailScreenState();
+  State<SlotDetailView> createState() => _SlotDetailScreenState();
 }
  
-class _SlotDetailScreenState extends State<SlotDetailScreen> {
+class _SlotDetailScreenState extends State<SlotDetailView> {
   bool _isConfirming = false;
  
   Future<void> _confirmBooking(BuildContext context) async {
-    final bookingState      = context.read<BookingState>();
+    final bookingState = context.read<BookingState>();
     final bookingRepository = context.read<BookingRepository>();
-    final slot              = bookingState.selectedSlot!;
-    final plan              = bookingState.selectedPlan!;
+    final slot = bookingState.selectedSlot!;
+    final plan = bookingState.selectedPlan!;
  
     setState(() => _isConfirming = true);
     try {
@@ -38,7 +38,7 @@ class _SlotDetailScreenState extends State<SlotDetailScreen> {
       if (mounted) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const SuccessScreen(mode: SuccessMode.bikeUnlocked)),
+          MaterialPageRoute(builder: (_) => const SuccessView(mode: SuccessMode.bikeUnlocked)),
         );
       }
     } catch (_) {
@@ -54,8 +54,8 @@ class _SlotDetailScreenState extends State<SlotDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final bookingState = context.watch<BookingState>();
-    final slot         = bookingState.selectedSlot!;
-    final hasPass      = bookingState.hasActivePass;
+    final slot = bookingState.selectedSlot!;
+    final hasPass = bookingState.hasActivePass;
  
     return Scaffold(
       backgroundColor: AppColors.surface,

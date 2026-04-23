@@ -9,6 +9,7 @@ class BookingState extends ChangeNotifier {
   PassPlan? _selectedPlan;
   Booking? _confirmedBooking;
   bool _hasActivePass = false;
+  
   final Set<String> _removedSlotIds = <String>{};
 
   BikeSlot? get selectedSlot => _selectedSlot;
@@ -19,12 +20,6 @@ class BookingState extends ChangeNotifier {
 
   void selectSlot(BikeSlot slot) {
     _selectedSlot = slot;
-    _removedSlotIds.add(slot.id);
-    notifyListeners();
-  }
-
-  void selectPlan(PassPlan plan) {
-    _selectedPlan = plan;
     notifyListeners();
   }
 
@@ -36,6 +31,7 @@ class BookingState extends ChangeNotifier {
 
   void setConfirmedBooking(Booking booking) {
     _confirmedBooking = booking;
+    _removedSlotIds.add(booking.slot.id); //remove only after confirm success
     notifyListeners();
   }
 

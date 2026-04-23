@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:velotoulouse/ui/screens/book_bike/slot_detail_screen.dart';
+import 'package:velotoulouse/ui/screens/book_bike/book_bike_screen.dart';
+import 'package:velotoulouse/ui/screens/book_bike/slot_detail_view.dart';
 import 'package:velotoulouse/ui/states/booking_state.dart';
 import 'package:velotoulouse/ui/theme/theme.dart';
 import 'package:velotoulouse/ui/widgets/bike/primary_button.dart';
 
-import 'book_bike_screen.dart';
-
 enum SuccessMode { passActivated, bikeUnlocked }
 
-class SuccessScreen extends StatelessWidget {
-  const SuccessScreen({super.key, required this.mode});
+class SuccessView extends StatelessWidget {
+  const SuccessView({super.key, required this.mode});
 
   final SuccessMode mode;
 
@@ -35,8 +34,8 @@ class SuccessScreen extends StatelessWidget {
                 height: 90,
                 decoration: BoxDecoration(
                   color: isPassMode
-                      ? AppColors.primaryLight
-                      : const Color(0xFFE8F5E9),
+                    ? AppColors.primaryLight
+                    : const Color(0xFFE8F5E9),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -48,7 +47,9 @@ class SuccessScreen extends StatelessWidget {
               const SizedBox(height: 28),
 
               Text(
-                isPassMode ? 'Your Pass is now active' : 'The Bike is Unlocked!',
+                isPassMode
+                    ? 'Your Pass is now active'
+                    : 'The Bike is Unlocked!',
                 textAlign: TextAlign.center,
                 style: AppTextStyles.heading,
               ),
@@ -56,7 +57,7 @@ class SuccessScreen extends StatelessWidget {
 
               Text(
                 isPassMode
-                    ? 'Your pass is now active. Go back to confirm your booking.'
+                    ? 'Your pass is now active. You can now unlock any bike in the network.'
                     : 'Enjoy your ride! Return the bike to any station in the network.',
                 textAlign: TextAlign.center,
                 style: AppTextStyles.body,
@@ -66,7 +67,8 @@ class SuccessScreen extends StatelessWidget {
               if (!isPassMode && booking != null)
                 _InfoBadge(
                   label: booking.plan.label,
-                  sublabel: 'Valid for one ride – unlocks slot ${booking.slot.id}',
+                  sublabel:
+                      'Valid for one ride – unlocks slot ${booking.slot.id}',
                 ),
 
               const Spacer(),
@@ -78,27 +80,28 @@ class SuccessScreen extends StatelessWidget {
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const SlotDetailScreen()),
-                          (route) => route.isFirst,
-                        );
-                      } else {
-                        bookingState.reset();
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const BookBikeScreen()),
-                          (route) => false,
-                        );
-                      }
+                          builder: (_) => const SlotDetailView(),
+                        ),
+                        (route) => route.isFirst,
+                      );
                     } else {
-                      bookingState.clearCurrentRideKeepPass();
+                      // Keep active pass; do not reset.
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const BookBikeScreen()),
+                          builder: (_) => const BookBikeScreen(),
+                        ),
                         (route) => route.isFirst,
                       );
                     }
+                  } else {
+                    bookingState.clearCurrentRideKeepPass();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (_) => const BookBikeScreen()),
+                      (route) => route.isFirst,
+                    );
+                  }
                 },
               ),
               const SizedBox(height: 16),
@@ -112,7 +115,6 @@ class SuccessScreen extends StatelessWidget {
 
 class _InfoBadge extends StatelessWidget {
   const _InfoBadge({required this.label, required this.sublabel});
-
   final String label;
   final String sublabel;
 

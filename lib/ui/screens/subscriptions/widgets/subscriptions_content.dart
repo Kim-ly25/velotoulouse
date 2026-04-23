@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../model/pass/pass_plan.dart';
 import '../../../states/booking_state.dart';
 import '../../../theme/theme.dart';
 import '../../../utils/async_value.dart';
-import '../../book_bike/success_screen.dart';
+import '../../book_bike/success_view.dart';
 import '../view_model/subscriptions_view_model.dart';
 import 'plan_tile.dart';
 
@@ -21,7 +20,6 @@ class _SubscriptionsContentState extends State<SubscriptionsContent> {
 
   @override
   Widget build(BuildContext context) {
-    // 1- Watch the view model
     SubscriptionsViewModel vm = context.watch<SubscriptionsViewModel>();
 
     AsyncValue<List<PassPlan>> asyncValue = vm.plansValue;
@@ -51,13 +49,22 @@ class _SubscriptionsContentState extends State<SubscriptionsContent> {
               setState(() => _expandedIndex = index);
             },
             onSubscribe: () {
-              // Activate selected plan and go to pass success screen.
-              context.read<BookingState>().activatePass(plans[index]);
+              final bookingState = context.read<BookingState>();
+
+              if (bookingState.hasActivePass) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('You already have an active pass.'),
+                  ),
+                );
+                return;
+              }
+
+              bookingState.activatePass(plans[index]);
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) =>
-                    const SuccessScreen(mode: SuccessMode.passActivated),
+                  builder: (_) => const SuccessView(mode: SuccessMode.passActivated),
                 ),
               );
             },

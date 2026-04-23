@@ -5,7 +5,7 @@ import '../../../../model/bike/bike_slot.dart';
 import '../../../states/booking_state.dart';
 import '../../../theme/theme.dart';
 import '../../../utils/async_value.dart';
-import '../slot_detail_screen.dart';
+import '../slot_detail_view.dart';
 import '../view_model/book_bike_view_model.dart';
 import 'bike_slot_tile.dart';
 
@@ -15,7 +15,6 @@ class BookBikeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 1- Watch the view model
     BookBikeViewModel vm = context.watch<BookBikeViewModel>();
 
     AsyncValue<List<BikeSlot>> asyncValue = vm.slotsValue;
@@ -64,9 +63,9 @@ class BookBikeContent extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     settings: const RouteSettings(
-                      name: SlotDetailScreen.routeName,
+                      name: SlotDetailView.routeName,
                     ),
-                    builder: (_) => const SlotDetailScreen(),
+                    builder: (_) => const SlotDetailView(),
                   ),
                 );
               },
